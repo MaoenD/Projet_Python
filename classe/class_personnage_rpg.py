@@ -1,5 +1,5 @@
 import random
-from classe.super_class_personnage import Personnage, Attaquant
+from classe.super_class import Personnage, Attaquant
 from classe.potion_classes import PotionSoin, PotionAttaque, PotionDefense
 
 class Heros(Personnage, Attaquant):

@@ -48,4 +48,3 @@ class Item(ABC):
     @abstractmethod
     def utiliser(self, personnage):
         pass
-
