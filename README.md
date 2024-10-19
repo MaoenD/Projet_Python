@@ -1,4 +1,4 @@
-Coucou pour les instruction rapides
+Coucou pour les instructions rapides
 
 package nécessaire actuellement random 
 
