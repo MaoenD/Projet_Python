@@ -1,4 +1,3 @@
-from abc import ABC, abstractmethod
 from classe.super_class import Item
 
 class PotionSoin(Item):
@@ -40,4 +39,4 @@ class Bombe(Item):
     def utiliser(self, personnage, monstre):
         monstre.hp = max(0, monstre.hp - self.valeur)
         print(f"Vous avez utilisé une bombe infligeant {self.valeur} points de dégâts au {monstre.nom}.")
-        print(f"{monstre.nom} a maintenant {monstre.hp} points de vie.")
+
