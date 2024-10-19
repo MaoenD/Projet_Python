@@ -1,5 +1,5 @@
-from classe.potion_classes import Bombe, Fumigene
-from classe.class_personnage_rpg import Heros, Monstre
+from classe.class_item import Bombe, Fumigene
+from classe.class_character import Heros, Monstre
 import random
 
 class Combat:

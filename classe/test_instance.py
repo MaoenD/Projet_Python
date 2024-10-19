@@ -1,6 +1,6 @@
 import random
 from abc import ABC, abstractmethod
-from classe.class_personnage_rpg import Gobelin, Orc, Troll, Squelette, Dragon, Slime
+from classe.class_character import Gobelin, Orc, Troll, Squelette, Dragon, Slime
 
 class Instance(ABC):
     def __init__(self, personnage, difficulte='normale'):

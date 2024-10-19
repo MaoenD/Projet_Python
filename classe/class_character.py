@@ -1,6 +1,6 @@
 import random
 from classe.super_class import Personnage, Attaquant
-from classe.potion_classes import PotionSoin, PotionAttaque, PotionDefense
+from classe.class_item import PotionSoin, PotionAttaque, PotionDefense
 
 class Heros(Personnage, Attaquant):
     def __init__(self, nom, niveau=1, hp=100, attaque=10, defense=5, esquive=15):

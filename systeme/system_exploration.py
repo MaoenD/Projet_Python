@@ -1,5 +1,5 @@
 import random
-from classe.class_personnage_rpg import Slime, Gobelin, Squelette, Orc, Troll, Dragon
+from classe.class_character import Slime, Gobelin, Squelette, Orc, Troll, Dragon
 
 class Exploration:
     def __init__(self, personnage):

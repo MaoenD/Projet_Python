@@ -1,6 +1,6 @@
 from systeme.system_exploration import Exploration
 from systeme.system_combat import Combat
-from classe.class_personnage_rpg import Heros
+from classe.class_character import Heros
 
 def main():
     print("Bienvenue dans le jeu RPG !")
