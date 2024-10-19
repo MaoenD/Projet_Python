@@ -43,6 +43,8 @@ class Combat:
                         return False
                     else:
                         print(f"{self.monstre.nom} vous a rattrapé, vous ne pouvez pas fuir !")
+            elif action == "cheat":
+                self.monstre.hp = 0
             else:
                 print("Action non reconnue.")
                 continue
