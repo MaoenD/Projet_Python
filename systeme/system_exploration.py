@@ -7,6 +7,58 @@ class Exploration:
         self.monstres = []
         self.niveau_slime = 1
         self.initialiser_monstres()
+        self.carte = self.carte()
+        self.position = [2, 2]
+
+    def carte(self):
+        return [
+            ["Forêt", "Forêt", "Forêt", "Forêt", "Forêt"],
+            ["Forêt", "Forêt", "Forêt", "Forêt", "Forêt"],
+            ["Forêt", "Forêt", "Départ", "Forêt", "Forêt"],
+            ["Forêt", "Forêt", "Forêt", "Forêt", "Forêt"],
+            ["Forêt", "Forêt", "Forêt", "Forêt", "Forêt"]
+        ]
+
+    def afficher_carte(self):
+        for y, ligne in enumerate(self.carte):
+            for x, zone in enumerate(ligne):
+                if [y, x] == self.position:
+                    print("P", end=" ")
+                else:
+                    print("X", end=" ")
+            print()
+
+    def deplacer(self, direction):
+        y, x = self.position
+        if direction == "north" and y > 0:
+            self.position[0] -= 1
+        elif direction == "south" and y < len(self.carte) - 1:
+            self.position[0] += 1
+        elif direction == "west" and x > 0:
+            self.position[1] -= 1
+        elif direction == "east" and x < len(self.carte[0]) - 1:
+            self.position[1] += 1
+        else:
+            print("Vous ne pouvez pas aller dans cette direction.")
+        
+        self.description_zone()
+
+        monstre = self.explorer()
+        if monstre:
+            from systeme.system_combat import Combat
+            combat = Combat(self.personnage, monstre)
+            combat.combattre()
+
+    def description_zone(self):
+        y, x = self.position
+        zone = self.carte[y][x]
+        
+        if zone == "Départ":
+            print("Vous êtes à votre point de départ.")
+        elif zone == "Forêt":
+            print("Vous êtes dans une forêt dense.")
+        elif zone == "Vide":
+            print("Il n'y a rien ici.")
 
     def initialiser_monstres(self):
         self.monstres.append(Gobelin())
