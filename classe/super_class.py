@@ -48,3 +48,22 @@ class Item(ABC):
     @abstractmethod
     def utiliser(self, personnage):
         pass
+
+class Map(ABC):
+    """Classe abstraite pour définir les cartes de jeu."""
+    def __init__(self, nom, taille=10):
+        self.nom = nom
+        self.taille = taille
+        self.grille = self.generer_map()
+
+    @abstractmethod
+    def generer_map(self):
+        pass
+
+    @abstractmethod
+    def changement_map(self, position):
+        pass
+
+    @abstractmethod
+    def prochaine_map(self):
+        pass
