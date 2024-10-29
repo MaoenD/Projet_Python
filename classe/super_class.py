@@ -50,7 +50,6 @@ class Item(ABC):
         pass
 
 class Map(ABC):
-    """Classe abstraite pour définir les cartes de jeu."""
     def __init__(self, nom, taille=10):
         self.nom = nom
         self.taille = taille
