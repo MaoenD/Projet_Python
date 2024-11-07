@@ -9,9 +9,8 @@ def main():
     exploration = Exploration(personnage)
 
     while personnage.est_vivant():
-        exploration.afficher_carte()
         print("\nQue voulez-vous faire ?")
-        action = input("(explorer/inventaire/quitter/north/south/east/west) : ").lower()
+        action = input("(explorer/inventaire/carte/quitter/north/south/east/west) : ").lower()
         
         if action == "explorer":
             monstre = exploration.explorer()
@@ -20,6 +19,8 @@ def main():
                 combat.combattre()
         elif action == "inventaire":
             menu_inventaire(personnage)
+        elif action == "carte":
+            menu_carte(exploration)
         elif action in ["north", "south", "east", "west"]:
             exploration.deplacer(action)
         elif action == "quitter":
@@ -37,6 +38,16 @@ def menu_inventaire(personnage):
         elif action == "check statut":
             afficher_statut(personnage)
         elif action == "retour":
+            break
+        else:
+            print("Action non reconnue.")
+
+def menu_carte(exploration):
+    while True:
+        print("Carte actuelle :")
+        exploration.afficher_carte()
+        action = input("(retour) : ").lower()
+        if action == "retour":
             break
         else:
             print("Action non reconnue.")

@@ -12,7 +12,10 @@ class Foret(Map):
         return position == [9, 5]
 
     def prochaine_map(self):
-        return "plage", [0, 5]
+        return "plage", [0, 0]
+    
+    def zone_safe(self, position):
+        return position == [9, 5] or position == [0, 0]
 
 class Plage(Map):
     def generer_map(self):
@@ -24,7 +27,10 @@ class Plage(Map):
         return position == [0, 5]
 
     def prochaine_map(self):
-        return "grotte", [9, 9]
+        return "grotte", [9, 0]
+    
+    def zone_safe(self, position):
+        return position == [0, 5] or position == [9, 0]
 
 class Grotte(Map):
     def generer_map(self):
@@ -36,7 +42,10 @@ class Grotte(Map):
         return position == [9, 9]
 
     def prochaine_map(self):
-        return "desert", [5, 0]
+        return "desert", [0, 5]
+    
+    def zone_safe(self, position):
+        return position == [9, 9] or position == [0, 5]
 
 class Desert(Map):
     def generer_map(self):
@@ -48,7 +57,10 @@ class Desert(Map):
         return position == [5, 0]
 
     def prochaine_map(self):
-        return "volcan", [0, 0]
+        return "volcan", [9, 9]
+    
+    def zone_safe(self, position):
+        return position == [5, 0] or position == [9, 9]
 
 class Volcan(Map):
     def generer_map(self):
@@ -61,6 +73,9 @@ class Volcan(Map):
 
     def prochaine_map(self):
         return None, None
+    
+    def zone_safe(self, position):
+        return position == [0, 0]
 
 class Exploration:
     def __init__(self, personnage):
@@ -77,6 +92,7 @@ class Exploration:
         }
         self.carte_active = self.cartes["foret"]
         self.position = [5, 5]
+        self.carte_active.grille = self.carte_active.generer_map()
 
     def afficher_carte(self):
         for y, ligne in enumerate(self.carte_active.grille):
@@ -104,12 +120,17 @@ class Exploration:
 
         if self.carte_active.changement_map(self.position):
             self.changer_carte()
+            return
+        
+        if self.carte_active.zone_safe(self.position):
+            print("Vous êtes dans une zone sûre.")
+        else:
 
-        monstre = self.explorer()
-        if monstre:
-            from systeme.system_combat import Combat
-            combat = Combat(self.personnage, monstre)
-            combat.combattre()
+            monstre = self.explorer()
+            if monstre:
+                from systeme.system_combat import Combat
+                combat = Combat(self.personnage, monstre)
+                combat.combattre()
 
     def description_zone(self):
         y, x = self.position
@@ -120,15 +141,16 @@ class Exploration:
         if prochaine:
             self.carte_active = self.cartes[prochaine]
             self.position = position
-            print(f"Vous changé de zone pour arriver dans la zone {self.carte_active.nom}.")
+            self.carte_active.grille = self.carte_active.generer_map()
+            print(f"Vous avez changé de zone pour arriver dans la zone {self.carte_active.nom}.")
         else:
-            print("Vous êtes dans la zone du boss. Fin de l'aventure !")
+            print("Vous êtes dans la zone du boss.")
 
     def initialiser_monstres(self):
         self.monstres.extend([Gobelin(), Squelette(), Orc(), Troll(), Dragon()])
 
     def explorer(self):
-        print("Vous explorez la zone...")
+        print("Vous explorez la zone")
         if random.choice([True, False]):
             monstre = random.choice(self.monstres)
             print(f"Vous avez rencontré un {monstre.nom} de niveau {monstre.niveau}!")

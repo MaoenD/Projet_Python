@@ -66,3 +66,7 @@ class Map(ABC):
     @abstractmethod
     def prochaine_map(self):
         pass
+
+    @abstractmethod
+    def zone_safe(self, position):
+        pass
