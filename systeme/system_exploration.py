@@ -97,10 +97,23 @@ class Exploration:
     def afficher_carte(self):
         for y, ligne in enumerate(self.carte_active.grille):
             for x, zone in enumerate(ligne):
-                if [y, x] == self.position:
-                    print("P", end=" ")
+                if zone == "Forêt" or zone == "SortieForêt":
+                    couleur = "\033[32m"  # Vert 
+                elif zone == "Plage" or zone == "SortiePlage":
+                    couleur = "\033[37m"  # Blanc 
+                elif zone == "Grotte" or zone == "SortieGrotte":
+                    couleur = "\033[34m"  # Bleu
+                elif zone == "Désert" or zone == "SortieDésert":
+                    couleur = "\033[93m"  # Jaune 
+                elif zone == "Volcan" or zone == "SortieVolcan":
+                    couleur = "\033[31m"  # Rouge 
                 else:
-                    print("X", end=" ")
+                    couleur = "\033[0m"
+
+                if [y, x] == self.position:
+                    print(f"{couleur}P\033[0m", end=" ")
+                else:
+                    print(f"{couleur}X\033[0m", end=" ")
             print()
 
     def deplacer(self, direction):
