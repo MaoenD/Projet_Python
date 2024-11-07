@@ -70,3 +70,11 @@ class Map(ABC):
     @abstractmethod
     def zone_safe(self, position):
         pass
+
+    @abstractmethod
+    def get_monstres(self):
+        pass
+
+    @abstractmethod
+    def spawn_monstre(self, position):
+        pass

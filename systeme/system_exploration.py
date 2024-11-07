@@ -1,5 +1,5 @@
 import random
-from classe.class_character import Slime, Gobelin, Squelette, Orc, Troll, Dragon
+from classe.class_character import Slime, Gobelin, Squelette, Orc, Troll, Dragon, ChauveSouris, VerDeSable
 from classe.super_class import Map
 
 class Foret(Map):
@@ -16,6 +16,14 @@ class Foret(Map):
     
     def zone_safe(self, position):
         return position == [9, 5] or position == [0, 0]
+    
+    def get_monstres(self):
+        return [Gobelin(), Orc(), Troll(), Slime()]
+    
+    def spawn_monstre(self, position):
+        if random.choice([True, False]):
+            return random.choice(self.get_monstres())
+        return None
 
 class Plage(Map):
     def generer_map(self):
@@ -31,6 +39,14 @@ class Plage(Map):
     
     def zone_safe(self, position):
         return position == [0, 5] or position == [9, 0]
+    
+    def get_monstres(self):
+        return [Squelette(), Orc(), Troll(), Slime()]
+    
+    def spawn_monstre(self, position):
+        if random.choice([True, False]):
+            return random.choice(self.get_monstres())
+        return None
 
 class Grotte(Map):
     def generer_map(self):
@@ -46,6 +62,14 @@ class Grotte(Map):
     
     def zone_safe(self, position):
         return position == [9, 9] or position == [0, 5]
+    
+    def get_monstres(self):
+        return [ChauveSouris(), Troll(), Slime()]
+    
+    def spawn_monstre(self, position):
+        if random.choice([True, False]):
+            return random.choice(self.get_monstres())
+        return None
 
 class Desert(Map):
     def generer_map(self):
@@ -61,6 +85,14 @@ class Desert(Map):
     
     def zone_safe(self, position):
         return position == [5, 0] or position == [9, 9]
+    
+    def get_monstres(self):
+        return [VerDeSable(), Slime()]
+    
+    def spawn_monstre(self, position):
+        if random.choice([True, False]):
+            return random.choice(self.get_monstres())
+        return None
 
 class Volcan(Map):
     def generer_map(self):
@@ -76,6 +108,14 @@ class Volcan(Map):
     
     def zone_safe(self, position):
         return position == [0, 0]
+    
+    def get_monstres(self):
+        return [Dragon()]
+    
+    def spawn_monstre(self, position):
+        if position == [5, 5]:
+            return Dragon()
+        return None
 
 class Exploration:
     def __init__(self, personnage):
@@ -160,14 +200,18 @@ class Exploration:
             print("Vous êtes dans la zone du boss.")
 
     def initialiser_monstres(self):
-        self.monstres.extend([Gobelin(), Squelette(), Orc(), Troll(), Dragon()])
+        self.monstres.extend([Gobelin(), Squelette(), Orc(), Troll(), Dragon(), ChauveSouris(), VerDeSable()])
 
     def explorer(self):
         print("Vous explorez la zone")
-        if random.choice([True, False]):
-            monstre = random.choice(self.monstres)
-            print(f"Vous avez rencontré un {monstre.nom} de niveau {monstre.niveau}!")
+
+        monstre = self.carte_active.spawn_monstre(self.position)
+
+        if monstre:
+            print(f"Vous avez rencontré un {monstre.nom} de niveau {monstre.niveau} avec {monstre.hp} HP!")
             return monstre
         else:
             print("Rien ne se passe.")
             return None
+
+

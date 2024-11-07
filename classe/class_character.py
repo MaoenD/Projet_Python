@@ -40,6 +40,14 @@ class Gobelin(Monstre):
     def __init__(self):
         super().__init__("Gobelin", niveau=1, hp=30, attaque=5, defense=2, tacle=5)
 
+class ChauveSouris(Monstre):
+    def __init__(self):
+        super().__init__("Chauve-Souris", niveau=1, hp=30, attaque=5, defense=3, tacle=2)
+
+class VerDeSable(Monstre):
+    def __init__(self):
+        super().__init__("Ver de Sable", niveau=4, hp=75, attaque=15, defense=25, tacle=8)
+
 class Orc(Monstre):
     def __init__(self):
         super().__init__("Orc", niveau=3, hp=50, attaque=10, defense=5, tacle=7)
