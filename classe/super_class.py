@@ -10,6 +10,7 @@ class Personnage(ABC):
         self.defense = defense
         self.xp = 0
         self.inventaire = []
+        self.equipement = {"Épée": None, "Bouclier": None, "Casque": None, "Armure": None}
 
     @abstractmethod
     def attaquer(self, cible):
@@ -49,6 +50,14 @@ class Item(ABC):
     def utiliser(self, personnage):
         pass
 
+class Coffre(ABC):
+    def __init__(self, item):
+        self.item = item
+
+    @abstractmethod
+    def ouvrir(self):
+        pass
+
 class Map(ABC):
     def __init__(self, nom, taille=10):
         self.nom = nom
@@ -77,4 +86,8 @@ class Map(ABC):
 
     @abstractmethod
     def spawn_monstre(self, position):
+        pass
+
+    @abstractmethod
+    def get_coffre(self, position):
         pass

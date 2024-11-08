@@ -1,6 +1,7 @@
 import random
 from classe.class_character import Slime, Gobelin, Squelette, Orc, Troll, Dragon, ChauveSouris, VerDeSable
 from classe.super_class import Map
+from classe.coffre import Coffre_Epee, Coffre_Bouclier, Coffre_Casque, Coffre_Armure
 
 class Foret(Map):
     def generer_map(self):
@@ -15,7 +16,7 @@ class Foret(Map):
         return "plage", [0, 0]
     
     def zone_safe(self, position):
-        return position == [9, 5] or position == [0, 0]
+        return position == [9, 5] or position == [0, 0] or position == [2, 2]
     
     def get_monstres(self):
         return [Gobelin(), Orc(), Troll(), Slime()]
@@ -23,6 +24,10 @@ class Foret(Map):
     def spawn_monstre(self, position):
         if random.choice([True, False]):
             return random.choice(self.get_monstres())
+        return None
+    def get_coffre(self, position):
+        if position == [2, 2]:
+            return Coffre_Epee()
         return None
 
 class Plage(Map):
@@ -38,7 +43,7 @@ class Plage(Map):
         return "grotte", [9, 0]
     
     def zone_safe(self, position):
-        return position == [0, 5] or position == [9, 0]
+        return position == [0, 5] or position == [9, 0] or position == [4, 4]
     
     def get_monstres(self):
         return [Squelette(), Orc(), Troll(), Slime()]
@@ -46,6 +51,11 @@ class Plage(Map):
     def spawn_monstre(self, position):
         if random.choice([True, False]):
             return random.choice(self.get_monstres())
+        return None
+    
+    def get_coffre(self, position):
+        if position == [4, 4]:
+            return Coffre_Bouclier()
         return None
 
 class Grotte(Map):
@@ -61,7 +71,7 @@ class Grotte(Map):
         return "desert", [0, 5]
     
     def zone_safe(self, position):
-        return position == [9, 9] or position == [0, 5]
+        return position == [9, 9] or position == [0, 5] or position == [6, 6]
     
     def get_monstres(self):
         return [ChauveSouris(), Troll(), Slime()]
@@ -69,6 +79,11 @@ class Grotte(Map):
     def spawn_monstre(self, position):
         if random.choice([True, False]):
             return random.choice(self.get_monstres())
+        return None
+    
+    def get_coffre(self, position):
+        if position == [6, 6]:
+            return Coffre_Casque()
         return None
 
 class Desert(Map):
@@ -84,7 +99,7 @@ class Desert(Map):
         return "volcan", [9, 9]
     
     def zone_safe(self, position):
-        return position == [5, 0] or position == [9, 9]
+        return position == [5, 0] or position == [9, 9] or position == [8, 8]
     
     def get_monstres(self):
         return [VerDeSable(), Slime()]
@@ -92,6 +107,11 @@ class Desert(Map):
     def spawn_monstre(self, position):
         if random.choice([True, False]):
             return random.choice(self.get_monstres())
+        return None
+    
+    def get_coffre(self, position):
+        if position == [8, 8]:
+            return Coffre_Armure()
         return None
 
 class Volcan(Map):
@@ -115,4 +135,6 @@ class Volcan(Map):
     def spawn_monstre(self, position):
         if position == [5, 5]:
             return Dragon()
+        return None
+    def get_coffre(self, position):
         return None

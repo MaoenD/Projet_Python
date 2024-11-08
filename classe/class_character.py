@@ -1,11 +1,24 @@
 import random
-from classe.super_class import Personnage, Attaquant
-from classe.class_item import PotionSoin, PotionAttaque, PotionDefense
+from classe.super_class import Item, Personnage, Attaquant
+from classe.class_item import Armure, Bouclier, Casque, Epee, PotionSoin, PotionAttaque, PotionDefense
 
 class Heros(Personnage, Attaquant):
     def __init__(self, nom, niveau=1, hp=100, attaque=10, defense=5, esquive=15):
         super().__init__(nom, niveau, hp, attaque, defense)
         self.esquive = esquive
+
+    def equiper(self, objet):
+        if isinstance(objet, Item):
+            if isinstance(objet, Epee):
+                self.equipement["Épée"] = objet
+            elif isinstance(objet, Bouclier):
+                self.equipement["Bouclier"] = objet
+            elif isinstance(objet, Casque):
+                self.equipement["Casque"] = objet
+            elif isinstance(objet, Armure):
+                self.equipement["Armure"] = objet
+            self.inventaire.remove(objet)
+            objet.utiliser(self)
 
     def attaquer(self, cible):
         dommage = max(0, self.attaque - cible.defense)

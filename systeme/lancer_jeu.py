@@ -10,9 +10,9 @@ def main():
 
     while personnage.est_vivant():
         print("\nQue voulez-vous faire ?")
-        action = input("(inventaire/carte/quitter/north/south/east/west) : ").lower()
+        action = input("(bag/carte/quitter/north/south/east/west) : ").lower()
         
-        if action == "inventaire":
+        if action == "bag":
             menu_inventaire(personnage)
         elif action == "carte":
             menu_carte(exploration)
@@ -27,15 +27,41 @@ def main():
 def menu_inventaire(personnage):
     while True:
         print("\nMenu Inventaire :")
-        action = input("(ouvrir inventaire/check statut/retour) : ").lower()
-        if action == "ouvrir inventaire":
+        action = input("(bag/status/equiper/retour) : ").lower()
+        if action == "bag":
             ouvrir_inventaire(personnage)
-        elif action == "check statut":
+        elif action == "status":
             afficher_statut(personnage)
+        elif action == "equiper":
+            equiper_item(personnage)
         elif action == "retour":
             break
         else:
             print("Action non reconnue.")
+
+def equiper_item(personnage):
+    if not personnage.inventaire:
+        print("Aucun équipement disponible")
+        return
+    
+    print("Équipement :")
+    for i, objet in enumerate(personnage.inventaire, 1):
+        print(f"{i}. {objet.nom}")
+    
+    choix = input("Entrez un numéro pour équiper un item : ")
+    if choix.isdigit():
+        index = int(choix) - 1
+        if 0 <= index < len(personnage.inventaire):
+            objet = personnage.inventaire[index]
+            if isinstance(personnage, Heros):
+                personnage.equiper(objet)
+        else:
+            print("Choix invalide.")
+    elif choix == "retour":
+        return
+    else:
+        print("Action non reconnue.")
+
 
 def menu_carte(exploration):
     while True:

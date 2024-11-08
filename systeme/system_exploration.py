@@ -38,10 +38,10 @@ class Exploration:
 
                 if [y, x] == self.position:
                     print(f"\033[30mP\033[0m", end=" ")
-
                 elif self.carte_active.changement_map([y, x]):
                     print(f"\033[30mS\033[0m", end=" ")
-
+                elif self.carte_active.get_coffre([y, x]):
+                    print(f"\033[30mC\033[0m", end=" ")
                 else:
                     print(f"{couleur}X\033[0m", end=" ")
             print()
@@ -60,6 +60,12 @@ class Exploration:
             print("Vous ne pouvez pas aller dans cette direction.")
         
         self.description_zone()
+
+        coffre = self.carte_active.get_coffre(self.position)
+        if coffre:
+            coffre.ouvrir()
+            self.personnage.ajouter_objet(coffre.item)
+            return
 
         if self.carte_active.changement_map(self.position):
             self.changer_carte()

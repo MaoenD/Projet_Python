@@ -40,3 +40,35 @@ class Bombe(Item):
         monstre.hp = max(0, monstre.hp - self.valeur)
         print(f"Vous avez utilisé une bombe infligeant {self.valeur} points de dégâts au {monstre.nom}.")
 
+class Epee(Item):
+    def __init__(self, valeur):
+        super().__init__("Épée", valeur)
+
+    def utiliser(self, personnage):
+        personnage.attaque += self.valeur
+        print(f"{personnage.nom} a équipé une épée. Attaque actuelle : {personnage.attaque}")
+
+class Bouclier(Item):
+    def __init__(self, valeur):
+        super().__init__("Bouclier", valeur)
+
+    def utiliser(self, personnage):
+        personnage.defense += self.valeur
+        print(f"{personnage.nom} a équipé un bouclier. Défense actuelle : {personnage.defense}")
+
+class Casque(Item):
+    def __init__(self, valeur):
+        super().__init__("Casque", valeur)
+
+    def utiliser(self, personnage):
+        personnage.defense += self.valeur
+        print(f"{personnage.nom} a équipé un casque. Défense actuelle : {personnage.defense}")
+
+class Armure(Item):
+    def __init__(self, valeur):
+        super().__init__("Armure", valeur)
+
+    def utiliser(self, personnage):
+        personnage.defense += self.valeur
+        print(f"{personnage.nom} a équipé une armure. Défense actuelle : {personnage.defense}")
+
