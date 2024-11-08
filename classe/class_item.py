@@ -37,8 +37,11 @@ class Bombe(Item):
         super().__init__("Bombe", valeur)
 
     def utiliser(self, personnage, monstre):
-        monstre.hp = max(0, monstre.hp - self.valeur)
-        print(f"Vous avez utilisé une bombe infligeant {self.valeur} points de dégâts au {monstre.nom}.")
+        if monstre:
+            monstre.hp = max(0, monstre.hp - self.valeur)
+            print(f"Vous avez utilisé une bombe infligeant {self.valeur} points de dégâts au {monstre.nom}.")
+        else:
+            print("Il n'y a pas de cible pour la bombe.")
 
 class Epee(Item):
     def __init__(self, valeur):

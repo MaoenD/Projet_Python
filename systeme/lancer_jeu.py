@@ -43,7 +43,6 @@ def equiper_item(personnage):
     if not personnage.inventaire:
         print("Aucun équipement disponible")
         return
-    
     print("Équipement :")
     for i, objet in enumerate(personnage.inventaire, 1):
         print(f"{i}. {objet.nom}")

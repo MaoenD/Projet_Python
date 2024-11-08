@@ -21,7 +21,11 @@ class Combat:
                         print(f"{i + 1}. {objet.nom}")
                     choix = int(input("Choisissez un objet à utiliser : ")) - 1
                     if 0 <= choix < len(self.personnage.inventaire):
-                        self.personnage.utiliser_objet(self.personnage.inventaire[choix])
+                        objet = self.personnage.inventaire[choix]
+                        if isinstance(objet, Bombe):
+                            self.personnage.utiliser_objet(objet, monstre=self.monstre)
+                        else:
+                            self.personnage.utiliser_objet(objet)
                     else:
                         print("Choix invalide.")
                 else:

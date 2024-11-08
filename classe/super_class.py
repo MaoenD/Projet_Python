@@ -16,9 +16,12 @@ class Personnage(ABC):
     def attaquer(self, cible):
         pass
 
-    def utiliser_objet(self, objet):
+    def utiliser_objet(self, objet, monstre=None):
         if objet in self.inventaire:
-            objet.utiliser(self)
+            if objet.__class__.__name__ == "Bombe":
+                objet.utiliser(self, monstre)
+            else:
+                objet.utiliser(self)
             self.inventaire.remove(objet)
 
     def gagner_xp(self, montant):
