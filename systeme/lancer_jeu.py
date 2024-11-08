@@ -10,14 +10,9 @@ def main():
 
     while personnage.est_vivant():
         print("\nQue voulez-vous faire ?")
-        action = input("(explorer/inventaire/carte/quitter/north/south/east/west) : ").lower()
+        action = input("(inventaire/carte/quitter/north/south/east/west) : ").lower()
         
-        if action == "explorer":
-            monstre = exploration.explorer()
-            if monstre:
-                combat = Combat(personnage, monstre)
-                combat.combattre()
-        elif action == "inventaire":
+        if action == "inventaire":
             menu_inventaire(personnage)
         elif action == "carte":
             menu_carte(exploration)
