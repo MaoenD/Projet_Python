@@ -44,8 +44,9 @@ class Bombe(Item):
             print("Il n'y a pas de cible pour la bombe.")
 
 class Epee(Item):
-    def __init__(self, valeur):
+    def __init__(self, valeur, crit_bonus=0.5):
         super().__init__("Épée", valeur)
+        self.crit_bonus = crit_bonus
 
     def utiliser(self, personnage):
         personnage.attaque += self.valeur

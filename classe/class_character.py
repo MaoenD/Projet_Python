@@ -21,7 +21,11 @@ class Heros(Personnage, Attaquant):
             objet.utiliser(self)
 
     def attaquer(self, cible):
+        critique = random.random() < 0.2
         dommage = max(0, self.attaque - cible.defense)
+        if critique:
+            dommage = int(dommage * 1.5)
+            print("Coup critique !")
         if self.niveau < cible.niveau:
             diff = cible.niveau - self.niveau
             dommage *= (1 - 0.1 * diff)

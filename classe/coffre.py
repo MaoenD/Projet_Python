@@ -3,7 +3,7 @@ from classe.class_item import Epee, Bouclier, Casque, Armure
 
 class Coffre_Epee(Coffre):
     def __init__(self):
-        super().__init__(Epee(10))
+        super().__init__(Epee(valeur=10, crit_bonus=0.5))
 
     def ouvrir(self):
         print(f"Vous avez trouvé une {self.item.nom} dans le coffre.")

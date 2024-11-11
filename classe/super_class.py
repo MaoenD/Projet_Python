@@ -8,10 +8,12 @@ class Personnage(ABC):
         self.hp_max = hp
         self.attaque = attaque
         self.defense = defense
+        self.multiplicateur_critique = 1.5
+        self.chance_critique = 0.2
         self.xp = 0
         self.inventaire = []
         self.equipement = {"Épée": None, "Bouclier": None, "Casque": None, "Armure": None}
-
+        
     @abstractmethod
     def attaquer(self, cible):
         pass
@@ -38,6 +40,12 @@ class Personnage(ABC):
 
     def ajouter_objet(self, objet):
         self.inventaire.append(objet)
+    
+    def get_chance_critique(self):
+        return self.chance_critique
+
+    def get_multiplicateur_critique(self):
+        return self.multiplicateur_critique
 
 class Attaquant(ABC):
     @abstractmethod
