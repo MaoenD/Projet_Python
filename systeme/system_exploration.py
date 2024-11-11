@@ -40,10 +40,13 @@ class Exploration:
                     print(f"\033[30mP\033[0m", end=" ")
                 elif self.carte_active.changement_map([y, x]):
                     print(f"\033[30mS\033[0m", end=" ")
-                elif self.carte_active.get_coffre([y, x]):
-                    print(f"\033[30mC\033[0m", end=" ")
                 else:
-                    print(f"{couleur}X\033[0m", end=" ")
+                    coffre = self.carte_active.coffres.get((y, x))
+                    if coffre:
+                        symbole = f"{couleur}C\033[0m" if coffre.ouvert else "\033[30mC\033[0m"
+                        print(symbole, end=" ")
+                    else:
+                        print(f"{couleur}X\033[0m", end=" ")
             print()
 
     def deplacer(self, direction):
@@ -61,10 +64,13 @@ class Exploration:
         
         self.description_zone()
 
-        coffre = self.carte_active.get_coffre(self.position)
+        coffre = self.carte_active.coffres.get(tuple(self.position))
         if coffre:
-            coffre.ouvrir()
-            self.personnage.ajouter_objet(coffre.item)
+            if not coffre.ouvert:
+                coffre.ouvrir()
+                self.personnage.ajouter_objet(coffre.item)
+            else:
+                print("Le coffre est vide, vous avez déjà récupérez l'objet.")
             return
 
         if self.carte_active.changement_map(self.position):

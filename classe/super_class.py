@@ -64,6 +64,7 @@ class Item(ABC):
 class Coffre(ABC):
     def __init__(self, item):
         self.item = item
+        self.ouvert = False
 
     @abstractmethod
     def ouvrir(self):
@@ -74,7 +75,9 @@ class Map(ABC):
         self.nom = nom
         self.taille = taille
         self.grille = self.generer_map()
-
+        self.coffres = {}
+        self.def_coffres()
+    
     @abstractmethod
     def generer_map(self):
         pass
@@ -100,5 +103,5 @@ class Map(ABC):
         pass
 
     @abstractmethod
-    def get_coffre(self, position):
+    def def_coffres(self):
         pass

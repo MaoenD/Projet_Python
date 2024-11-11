@@ -25,10 +25,9 @@ class Foret(Map):
         if random.choice([True, False]):
             return random.choice(self.get_monstres())
         return None
-    def get_coffre(self, position):
-        if position == [2, 2]:
-            return Coffre_Epee()
-        return None
+    
+    def def_coffres(self):
+        self.coffres[(2, 2)] = Coffre_Epee()
 
 class Plage(Map):
     def generer_map(self):
@@ -53,10 +52,8 @@ class Plage(Map):
             return random.choice(self.get_monstres())
         return None
     
-    def get_coffre(self, position):
-        if position == [4, 4]:
-            return Coffre_Bouclier()
-        return None
+    def def_coffres(self):
+        self.coffres[(4, 4)] = Coffre_Bouclier()
 
 class Grotte(Map):
     def generer_map(self):
@@ -81,10 +78,8 @@ class Grotte(Map):
             return random.choice(self.get_monstres())
         return None
     
-    def get_coffre(self, position):
-        if position == [6, 6]:
-            return Coffre_Casque()
-        return None
+    def def_coffres(self):
+        self.coffres[(6, 6)] = Coffre_Casque()
 
 class Desert(Map):
     def generer_map(self):
@@ -109,10 +104,8 @@ class Desert(Map):
             return random.choice(self.get_monstres())
         return None
     
-    def get_coffre(self, position):
-        if position == [8, 8]:
-            return Coffre_Armure()
-        return None
+    def def_coffres(self):
+        self.coffres[(8, 8)] = Coffre_Armure()
 
 class Volcan(Map):
     def generer_map(self):
@@ -136,5 +129,6 @@ class Volcan(Map):
         if position == [5, 5]:
             return Dragon()
         return None
-    def get_coffre(self, position):
-        return None
+    
+    def def_coffres(self):
+        self.coffres = {}
