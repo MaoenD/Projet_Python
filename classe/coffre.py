@@ -3,7 +3,7 @@ from classe.class_item import Epee, Bouclier, Casque, Armure
 
 class Coffre_Epee(Coffre):
     def __init__(self):
-        super().__init__(Epee(valeur=10, crit_bonus=0.5))
+        super().__init__(Epee(valeur=10, multiplicateur_critique=0.5))
 
     def ouvrir(self):
         if not self.ouvert:
@@ -25,7 +25,7 @@ class Coffre_Bouclier(Coffre):
 
 class Coffre_Casque(Coffre):
     def __init__(self):
-        super().__init__(Casque(3))
+        super().__init__(Casque(valeur=3, chance_critique=0.3))
 
     def ouvrir(self):
         if not self.ouvert:

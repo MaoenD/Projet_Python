@@ -3,6 +3,10 @@ from classe.class_character import Slime, Gobelin, Squelette, Orc, Troll, Dragon
 from classe.super_class import Map
 from classe.maps import Foret, Plage, Grotte, Desert, Volcan
 
+ARGENTE = "\033[38;5;250m" 
+SANG = "\033[38;5;88m"
+RESET = "\033[0m"
+
 class Exploration:
     def __init__(self, personnage):
         self.personnage = personnage
@@ -60,7 +64,7 @@ class Exploration:
         elif direction == "east" and x < self.carte_active.taille - 1:
             self.position[1] += 1
         else:
-            print("Vous ne pouvez pas aller dans cette direction.")
+            print(f"{SANG}Vous ne pouvez pas aller dans cette direction.{RESET}")
         
         self.description_zone()
 
@@ -99,7 +103,7 @@ class Exploration:
             self.carte_active = self.cartes[prochaine]
             self.position = position
             self.carte_active.grille = self.carte_active.generer_map()
-            print(f"Vous avez changé de zone pour arriver dans la zone {self.carte_active.nom}.")
+            print(f"{ARGENTE}Vous avez changé de zone pour arriver dans la zone {self.carte_active.nom}.{RESET}")
         else:
             print("Vous êtes dans la zone du boss.")
 

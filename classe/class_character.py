@@ -2,6 +2,9 @@ import random
 from classe.super_class import Item, Personnage, Attaquant
 from classe.class_item import Armure, Bouclier, Casque, Epee, PotionSoin, PotionAttaque, PotionDefense
 
+CRITIQUE = "\033[38;5;226m"
+RESET = "\033[0m"
+
 class Heros(Personnage, Attaquant):
     def __init__(self, nom, niveau=1, hp=100, attaque=10, defense=5, esquive=15):
         super().__init__(nom, niveau, hp, attaque, defense)
@@ -25,7 +28,7 @@ class Heros(Personnage, Attaquant):
         dommage = max(0, self.attaque - cible.defense)
         if critique:
             dommage = int(dommage * 1.5)
-            print("Coup critique !")
+            print(f"{CRITIQUE}Coup critique ! {RESET}")
         if self.niveau < cible.niveau:
             diff = cible.niveau - self.niveau
             dommage *= (1 - 0.1 * diff)

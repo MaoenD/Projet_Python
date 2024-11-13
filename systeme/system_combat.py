@@ -2,6 +2,12 @@ from classe.class_item import Bombe, Fumigene
 from classe.class_character import Heros, Monstre
 import random
 
+FEU = "\033[38;5;208m"
+SANG = "\033[38;5;88m" 
+ROUGE = "\033[31m"
+GOLD = "\033[38;5;220m"
+RESET = "\033[0m"
+
 class Combat:
     def __init__(self, personnage, monstre):
         self.personnage = personnage
@@ -39,14 +45,14 @@ class Combat:
                         print("Vous avez réussi à fuir !")
                         return False
                     else:
-                        print(f"{self.monstre.nom} vous a rattrapé, vous ne pouvez pas fuir !")
+                        print(f"{SANG}{self.monstre.nom} vous a rattrapé, vous ne pouvez pas fuir !{RESET}")
                 else:
                     chance_fuite = self.personnage.esquive / (2 * self.monstre.tacle)
                     if random.random() < chance_fuite:
-                        print("Vous avez réussi à fuir !")
+                        print(f"{FEU}Vous avez réussi à fuir !{RESET}")
                         return False
                     else:
-                        print(f"{self.monstre.nom} vous a rattrapé, vous ne pouvez pas fuir !")
+                        print(f"{SANG}{self.monstre.nom} vous a rattrapé, vous ne pouvez pas fuir !{RESET}")
             elif action == "cheat":
                 self.monstre.hp = 0
             else:
@@ -55,22 +61,22 @@ class Combat:
 
             if self.monstre.est_vivant():
                 dommage = self.monstre.attaquer(self.personnage)
-                print(f"Le {self.monstre.nom} vous a infligé {dommage} points de dégâts.")
+                print(f"{SANG}Le {self.monstre.nom} vous a infligé {dommage} points de dégâts.{RESET}")
 
         if self.personnage.est_vivant():
             print(f"Vous avez vaincu le {self.monstre.nom} !")
             self.personnage.gagner_xp(self.monstre.niveau * 10)
-            if random.random() < 0.8 and self.monstre.nom != "Slime":
+            if random.random() < 0.4 and self.monstre.nom != "Slime":
                 bombe = Bombe(self.monstre.niveau * 10)
-                print(f"Le {self.monstre.nom} a laissé tomber une bombe !")
+                print(f"{GOLD}Le {self.monstre.nom} a laissé tomber une bombe !{RESET}")
                 self.personnage.ajouter_objet(bombe)
-            elif random.random() < 0.8 and self.monstre.nom != "Slime":
+            elif random.random() < 0.4 and self.monstre.nom != "Slime":
                 fumigene = Fumigene(self.monstre.niveau * 5)
-                print(f"Le {self.monstre.nom} a laissé tomber un fumigène !")
+                print(f"{GOLD}Le {self.monstre.nom} a laissé tomber un fumigène !{RESET}")
                 self.personnage.ajouter_objet(fumigene)
             elif self.monstre.nom == "Slime":
                 drop_potion = self.monstre.drop_potion()
-                print(f"Le {self.monstre.nom} a laissé tomber {drop_potion.nom} !")
+                print(f"{GOLD}Le {self.monstre.nom} a laissé tomber {drop_potion.nom}!{RESET}")
                 self.personnage.ajouter_objet(drop_potion)
             return True
         else:
