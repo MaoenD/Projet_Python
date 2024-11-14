@@ -44,13 +44,14 @@ class Bombe(Item):
             print("Il n'y a pas de cible pour la bombe.")
 
 class Epee(Item):
-    def __init__(self, valeur, crit_bonus=0.5):
+    def __init__(self, valeur, multiplicateur_critique=0.5):
         super().__init__("Épée", valeur)
-        self.crit_bonus = crit_bonus
+        self.multiplicateur_critique = multiplicateur_critique
 
     def utiliser(self, personnage):
         personnage.attaque += self.valeur
-        print(f"{personnage.nom} a équipé une épée. Attaque actuelle : {personnage.attaque}")
+        personnage.multiplicateur_critique += self.multiplicateur_critique
+        print(f"{personnage.nom} a équipé une épée. Attaque actuelle : {personnage.attaque} Multiplicateur critique actuel: {personnage.multiplicateur_critique}")
 
 class Bouclier(Item):
     def __init__(self, valeur):
@@ -61,12 +62,14 @@ class Bouclier(Item):
         print(f"{personnage.nom} a équipé un bouclier. Défense actuelle : {personnage.defense}")
 
 class Casque(Item):
-    def __init__(self, valeur):
+    def __init__(self, valeur, chance_critique=0.3):
         super().__init__("Casque", valeur)
-
+        self.chance_critique = chance_critique
+        
     def utiliser(self, personnage):
         personnage.defense += self.valeur
-        print(f"{personnage.nom} a équipé un casque. Défense actuelle : {personnage.defense}")
+        personnage.chance_critique += self.chance_critique
+        print(f"{personnage.nom} a équipé un casque. Défense actuelle : {personnage.defense} Chance critique actuelle: {personnage.chance_critique}")
 
 class Armure(Item):
     def __init__(self, valeur):

@@ -1,24 +1,73 @@
+import pickle
 from systeme.system_exploration import Exploration
 from systeme.system_combat import Combat
 from classe.class_character import Heros
 
-def main():
-    print("Bienvenue dans le jeu RPG !")
-    nom = input("Entrez le nom de votre personnage : ")
-    personnage = Heros(nom)
-    exploration = Exploration(personnage)
+ROUGE = "\033[31m"
+VERT = "\033[32m"
+BLEU = "\033[34m"
+AZURE = "\033[38;5;123m"
+GOLD = "\033[38;5;220m"
+RESET = "\033[0m"
 
+
+def sauvegarder_partie(personnage, exploration):
+    with open("sauvegarde.pkl", "wb") as fichier:
+        pickle.dump((personnage, exploration), fichier)
+    print(f"{BLEU}Partie sauvegardée avec succès.{RESET}")
+
+def charger_partie():
+    try:
+        with open("sauvegarde.pkl", "rb") as fichier:
+            personnage, exploration = pickle.load(fichier)
+        print(f"{ROUGE} Partie chargée avec succès.{RESET}")
+        return personnage, exploration
+    except FileNotFoundError:
+        print(f"{VERT}Aucune sauvegarde trouvée.{RESET}")
+        return None, None
+
+def menu_principal():
+    print(f"{ROUGE}Bienvenue dans le jeu RPG !{RESET}")
+    print("Voulez-vous:")
+    print(f"{VERT}(1) lancer une nouvelle partie{RESET}")
+    print(f"{BLEU}(2) charger une partie?{RESET}")
+    
+    while True:
+        choix = input("Entrez votre choix : ")
+        if choix == "1":
+            nom = input("Entrez le nom de votre personnage : ")
+            personnage = Heros(nom)
+            exploration = Exploration(personnage)
+            return personnage, exploration
+        elif choix == "2":
+            personnage, exploration = charger_partie()
+            if personnage is not None and exploration is not None:
+                return personnage, exploration
+            else:
+                print("Aucune sauvegarde n'a été trouvée. Lancement d'une nouvelle partie.")
+                nom = input("Entrez le nom de votre personnage : ")
+                personnage = Heros(nom)
+                exploration = Exploration(personnage)
+                return personnage, exploration
+        else:
+            print("Choix invalide, veuillez entrer 1 ou 2.")
+
+def main():
+    personnage, exploration = menu_principal()
+    
     while personnage.est_vivant():
         print("\nQue voulez-vous faire ?")
-        action = input("(bag/carte/quitter/north/south/east/west) : ").lower()
+        action = input(f"({GOLD}bag{RESET}/{AZURE}carte{RESET}/{ROUGE}save{RESET}/{VERT}north{RESET}/{VERT}south{RESET}/{VERT}east{RESET}/{VERT}west{RESET}/quit) : ").lower()
         
         if action == "bag":
             menu_inventaire(personnage)
         elif action == "carte":
             menu_carte(exploration)
+        elif action == "save":
+            sauvegarder_partie(personnage, exploration)
         elif action in ["north", "south", "east", "west"]:
             exploration.deplacer(action)
-        elif action == "quitter":
+        elif action == "quit":
             print("Merci d'avoir joué !")
             break
         else:
@@ -26,8 +75,8 @@ def main():
 
 def menu_inventaire(personnage):
     while True:
-        print("\nMenu Inventaire :")
-        action = input("(bag/status/equiper/retour) : ").lower()
+        print(f"{GOLD}\nMenu Inventaire :")
+        action = input(f"(bag/status/equiper/retour) : {RESET}").lower()
         if action == "bag":
             ouvrir_inventaire(personnage)
         elif action == "status":
